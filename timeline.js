@@ -8,8 +8,21 @@ module.exports = function(app){
     // Timeline.loadingMsg     = "This message will display in the console when component will be loaded.";
     // Timeline.requires       = [];
 
-    // Timeline.prototype.onCreate = function(){
-    // do thing after element's creation
-    // }
+    Timeline.prototype.onCreate = function(){
+        var timeline = this;
+        timeline.el = timeline.$el.get(0);
+        timeline.wrapper = timeline.el.querySelector('.timeline__wrapper');
+        timeline.content = timeline.el.querySelector('.timeline__content');
+        timeline.picture = timeline.el.querySelector('.timeline__picture');
+
+        timeline.onResize();
+    }
+
+    Timeline.prototype.onResize = function(){
+       var timeline = this; 
+        timeline.el.classList.remove('cols-1');
+        if (timeline.content.scrollWidth > timeline.content.clientWidth)
+            timeline.el.classList.add('cols-1');
+    }
     return Timeline;
 }
